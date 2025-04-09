@@ -16,27 +16,27 @@ const envVars: EnvVar[] = [
   {
     name: 'REACT_APP_API_RATE_LIMIT',
     required: false,
-    validate: (value) => !isNaN(Number(value)) && Number(value) > 0,
+    validate: value => !isNaN(Number(value)) && Number(value) > 0,
   },
   {
     name: 'REACT_APP_API_RATE_WINDOW',
     required: false,
-    validate: (value) => !isNaN(Number(value)) && Number(value) > 0,
+    validate: value => !isNaN(Number(value)) && Number(value) > 0,
   },
   {
     name: 'REACT_APP_ENABLE_AI_CLAIMS',
     required: false,
-    validate: (value) => value === 'true' || value === 'false',
+    validate: value => value === 'true' || value === 'false',
   },
   {
     name: 'REACT_APP_ENABLE_COVERAGE_ANALYSIS',
     required: false,
-    validate: (value) => value === 'true' || value === 'false',
+    validate: value => value === 'true' || value === 'false',
   },
   {
     name: 'REACT_APP_ENABLE_EDUCATIONAL_RESOURCES',
     required: false,
-    validate: (value) => value === 'true' || value === 'false',
+    validate: value => value === 'true' || value === 'false',
   },
 ];
 
@@ -44,7 +44,7 @@ export function validateEnv(): void {
   const missingVars: string[] = [];
   const invalidVars: string[] = [];
 
-  envVars.forEach((envVar) => {
+  envVars.forEach(envVar => {
     const value = process.env[envVar.name];
 
     if (envVar.required && !value) {
@@ -55,15 +55,11 @@ export function validateEnv(): void {
   });
 
   if (missingVars.length > 0) {
-    throw new Error(
-      `Missing required environment variables: ${missingVars.join(', ')}`
-    );
+    throw new Error(`Missing required environment variables: ${missingVars.join(', ')}`);
   }
 
   if (invalidVars.length > 0) {
-    throw new Error(
-      `Invalid environment variables: ${invalidVars.join(', ')}`
-    );
+    throw new Error(`Invalid environment variables: ${invalidVars.join(', ')}`);
   }
 }
 
@@ -89,4 +85,4 @@ export function getNumberEnvVar(name: string, defaultValue: number): number {
     throw new Error(`Environment variable ${name} is not a valid number`);
   }
   return num;
-} 
+}

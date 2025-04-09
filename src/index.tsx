@@ -13,9 +13,7 @@ try {
   console.error('Environment validation failed:', error.message);
   // In development, we'll show the error in the browser
   if (process.env.NODE_ENV === 'development') {
-    const root = ReactDOM.createRoot(
-      document.getElementById('root') as HTMLElement
-    );
+    const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
     root.render(
       <React.StrictMode>
         <div style={{ padding: '20px', color: 'red' }}>
@@ -30,9 +28,7 @@ try {
   throw error;
 }
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
   <React.StrictMode>
