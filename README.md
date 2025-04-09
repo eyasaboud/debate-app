@@ -1,46 +1,124 @@
-# Getting Started with Create React App
+# Debate App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A structured debate platform that facilitates organized, point-by-point discussions with AI-assisted claim identification and response coverage analysis.
 
-## Available Scripts
+[![CI](https://github.com/abaa1/debate-app/actions/workflows/ci.yml/badge.svg)](https://github.com/abaa1/debate-app/actions/workflows/ci.yml)
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- Blue/red panel debate interface
+- Point-by-point response system
+- AI-assisted claim identification
+- Response coverage analysis
+- User authentication
+- Educational resources on argumentation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Tech Stack
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- React 19 with TypeScript
+- Redux Toolkit for state management
+- Tailwind CSS for styling
+- React Router for navigation
+- Jest and React Testing Library for testing
 
-### `npm test`
+## Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
 
-### `npm run build`
+- Node.js 20+
+- npm 9+
+- Docker and Docker Compose (optional, for containerized development)
+- Auth0 account (for authentication)
+- Anthropic API key (for AI features)
+- Perplexity API key (for research features)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Environment Setup
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Copy the example environment file:
+   ```bash
+   cp .env.example .env
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Update the following variables in `.env`:
+   - `ANTHROPIC_API_KEY`: Your Anthropic API key
+   - `PERPLEXITY_API_KEY`: Your Perplexity API key
+   - `REACT_APP_AUTH_DOMAIN`: Your Auth0 domain
+   - `REACT_APP_AUTH_CLIENT_ID`: Your Auth0 client ID
+   - `REACT_APP_AUTH_AUDIENCE`: Your Auth0 API identifier
+   - `REACT_APP_AUTH_REDIRECT_URI`: Your application's callback URL
 
-### `npm run eject`
+3. Optional environment variables:
+   - `DEBUG`: Enable debug logging
+   - `LOG_LEVEL`: Set logging level
+   - `REACT_APP_ENABLE_AI_CLAIMS`: Enable/disable AI claim identification
+   - `REACT_APP_ENABLE_COVERAGE_ANALYSIS`: Enable/disable response coverage analysis
+   - `REACT_APP_ENABLE_EDUCATIONAL_RESOURCES`: Enable/disable educational resources
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Installation
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/username/debate-app.git
+   cd debate-app
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+3. Start the development server:
+   ```bash
+   npm start
+   ```
 
-## Learn More
+4. Open [http://localhost:3000](http://localhost:3000) to view the app in the browser.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Docker Setup
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Build and start the Docker container:
+   ```bash
+   docker-compose up
+   ```
+
+2. The app will be available at [http://localhost:3000](http://localhost:3000).
+
+## Development Workflow
+
+### Code Style and Quality
+
+We use ESLint and Prettier to enforce code quality and style:
+
+- Run `npm run lint` to check for linting issues
+- Run `npm run lint:fix` to automatically fix linting issues
+- Run `npm run format` to format code with Prettier
+
+### Testing
+
+- Run `npm test` to run all tests
+- Run `npm test -- --watch` to run tests in watch mode
+
+### Building for Production
+
+To build the app for production:
+
+```bash
+npm run build
+```
+
+The build artifacts will be stored in the `build/` directory.
+
+## Contributing
+
+Please read our [Contributing Guide](./CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- [React Documentation](https://react.dev/)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
+- [Redux Toolkit Documentation](https://redux-toolkit.js.org/)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs/)
