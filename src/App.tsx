@@ -8,9 +8,15 @@ function App() {
         <h1>Debate App</h1>
         <nav>
           <ul>
-            <li><a href="/debates">Browse Debates</a></li>
-            <li><a href="/create">Start a Debate</a></li>
-            <li><a href="/profile">My Profile</a></li>
+            <li>
+              <a href="/debates">Browse Debates</a>
+            </li>
+            <li>
+              <a href="/create">Start a Debate</a>
+            </li>
+            <li>
+              <a href="/profile">My Profile</a>
+            </li>
           </ul>
         </nav>
       </header>
