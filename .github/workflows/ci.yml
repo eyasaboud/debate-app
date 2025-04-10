@@ -26,18 +26,21 @@ jobs:
     
     - name: Install dependencies
       run: npm ci
+      
+    - name: Debug - Show installed packages
+      run: npm list --depth=0
     
     - name: Check code formatting
-      run: npx prettier --check "src/**/*.{ts,tsx,js,jsx,css,md}"
+      run: npm run format:check || (echo "Formatting check failed. Run 'npm run format' to fix" && exit 1)
     
     - name: Lint
-      run: npm run lint
+      run: npm run lint || (echo "Linting failed. Run 'npm run lint:fix' to fix" && exit 1)
     
     - name: Type check
-      run: npx tsc --noEmit
+      run: npx tsc --noEmit || (echo "Type checking failed. Fix type errors and try again" && exit 1)
     
     - name: Run tests
-      run: npm test -- --watchAll=false --coverage --ci
+      run: npm test
       
   debate-app-build:
     name: Debate App Build
