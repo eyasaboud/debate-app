@@ -22,27 +22,21 @@ jobs:
         cache-dependency-path: '**/package-lock.json'
     
     - name: Install dependencies
-      working-directory: debate-app
       run: npm ci
       
     - name: Debug - Show installed packages
-      working-directory: debate-app
       run: npm list --depth=0
     
     - name: Check code formatting
-      working-directory: debate-app
       run: npm run format:check || (echo "Formatting check failed. Run 'npm run format' to fix" && exit 1)
     
     - name: Lint
-      working-directory: debate-app
       run: npm run lint || (echo "Linting failed. Run 'npm run lint:fix' to fix" && exit 1)
     
     - name: Type check
-      working-directory: debate-app
       run: npx tsc --noEmit || (echo "Type checking failed. Fix type errors and try again" && exit 1)
     
     - name: Run tests
-      working-directory: debate-app
       run: npm test
       
   debate-app-build:
@@ -61,15 +55,12 @@ jobs:
         cache-dependency-path: '**/package-lock.json'
     
     - name: Install dependencies
-      working-directory: debate-app
       run: npm ci
     
     - name: Build application
-      working-directory: debate-app
       run: npm run build
       
     - name: Debug - List build directory
-      working-directory: debate-app
       run: |
         echo "Current directory:"
         pwd
@@ -83,7 +74,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: debate-app-build
-        path: debate-app/build
+        path: build
         retention-days: 7
 
   debate-app-security:
@@ -101,9 +92,7 @@ jobs:
         cache-dependency-path: '**/package-lock.json'
         
     - name: Install dependencies
-      working-directory: debate-app
       run: npm ci
     
     - name: Run npm audit
-      working-directory: debate-app
       run: npm audit --audit-level=high || true 
