@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Debate App",
+  "name": "Debate App - A platform for structured debates",
   "icons": [
     {
       "src": "favicon.ico",
