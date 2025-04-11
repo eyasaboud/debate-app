@@ -10,6 +10,9 @@ jobs:
   debate-app-validate:
     name: Debate App Validate
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ github.workspace }}
     
     steps:
     - uses: actions/checkout@v3
@@ -19,27 +22,33 @@ jobs:
       with:
         node-version: '20'
         cache: 'npm'
-        cache-dependency-path: 'package-lock.json'
+        cache-dependency-path: '**/package-lock.json'
     
     - name: Install dependencies
       run: npm ci
+      
+    - name: Debug - Show installed packages
+      run: npm list --depth=0
     
     - name: Check code formatting
-      run: npx prettier --check "src/**/*.{ts,tsx,js,jsx,css,md}"
+      run: npm run format:check || (echo "Formatting check failed. Run 'npm run format' to fix" && exit 1)
     
     - name: Lint
-      run: npm run lint
+      run: npm run lint || (echo "Linting failed. Run 'npm run lint:fix' to fix" && exit 1)
     
     - name: Type check
-      run: npx tsc --noEmit
+      run: npx tsc --noEmit || (echo "Type checking failed. Fix type errors and try again" && exit 1)
     
     - name: Run tests
-      run: npm test -- --watchAll=false --coverage --ci
+      run: npm test
       
   debate-app-build:
     name: Debate App Build
     needs: debate-app-validate
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ github.workspace }}
     
     steps:
     - uses: actions/checkout@v3
@@ -49,27 +58,50 @@ jobs:
       with:
         node-version: '20'
         cache: 'npm'
-        cache-dependency-path: 'package-lock.json'
+        cache-dependency-path: '**/package-lock.json'
     
     - name: Install dependencies
       run: npm ci
     
     - name: Build application
       run: npm run build
+      
+    - name: Debug - List build directory
+      run: |
+        echo "Current directory:"
+        pwd
+        echo "Directory contents:"
+        ls -la
+        echo "Build directory contents:"
+        ls -la build || echo "Build directory not found"
     
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
+      if: success()
+      uses: actions/upload-artifact@v4
       with:
-        name: build
+        name: debate-app-build
         path: build
         retention-days: 7
 
   debate-app-security:
     name: Debate App Security
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ github.workspace }}
     
     steps:
     - uses: actions/checkout@v3
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: '**/package-lock.json'
+        
+    - name: Install dependencies
+      run: npm ci
     
     - name: Run npm audit
       run: npm audit --audit-level=high || true 
